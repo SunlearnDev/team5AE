@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ListNhacCaNhan
 {
-    internal class ThongKe
+    public interface ThongKe
     {
+        Double Price();
+        Double Decrease();
     }
 }
