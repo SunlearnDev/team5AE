@@ -10,6 +10,10 @@ namespace ListNhacCaNhan
     {
         static void Main(string[] args)
         {
+            ListSinger singers = new ListSinger();
+            singers.ReadDB();
+            singers.Xuat();
+            Console.ReadKey();
         }
     }
 }
