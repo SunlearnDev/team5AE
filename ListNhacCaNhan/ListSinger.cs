@@ -82,7 +82,7 @@ namespace ListNhacCaNhan
             Console.Write("Nhap ID: ");
             String id = Console.ReadLine();
             if (this.singers.Remove(id))
-                Console.WriteLine("Da xoa!");
+                DeleteDB(id);
             else Console.WriteLine("ID khong ton tai!");
         }
         public void Sua()
@@ -100,7 +100,7 @@ namespace ListNhacCaNhan
                     {
                         singer.ID = temp.ID;
                         this.singers[temp.ID] = singer;
-                        Console.WriteLine("Da cap nhat!");
+                        UpdateDB(singer);
                     }
                     else Console.WriteLine("Cap nhat that bai!");
                 }
@@ -142,6 +142,37 @@ namespace ListNhacCaNhan
                     Human singer = new Singer(reader[0].ToString(), reader[1].ToString(), Convert.ToDateTime(reader[2]), reader[3].ToString());
                     this.singers.Add(singer.ID, singer);
                 }
+            }
+        }
+        public void UpdateDB(Human singer)
+        {
+            using (MySqlConnection connection = new MySqlConnection())
+            {
+                string connectionString = "server=localhost;database=music;uid=root;password=;";
+                connection.ConnectionString = connectionString;
+                connection.Open();
+                string query = "UPDATE singer SET name = @v1, birthday = @v2, gioitinh = @v3 WHERE id = @v4";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@v1", singer.Name);
+                cmd.Parameters.AddWithValue("@v2", singer.Birthday);
+                cmd.Parameters.AddWithValue("@v3", singer.Gender);
+                cmd.Parameters.AddWithValue("@v4", singer.ID);
+                if (cmd.ExecuteNonQuery() > 0) Console.WriteLine("Cap nhat thanh cong!");
+                else Console.WriteLine("Cap nhat that bai");
+            }
+        }
+        public void DeleteDB(String id)
+        {
+            using (MySqlConnection connection = new MySqlConnection())
+            {
+                string connectionString = "server=localhost;database=music;uid=root;password=;";
+                connection.ConnectionString = connectionString;
+                connection.Open();
+                string query = "DELETE FROM singer WHERE id = @v1";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@v1", id);
+                if (cmd.ExecuteNonQuery() > 0) Console.WriteLine("Xoa thanh cong!");
+                else Console.WriteLine("Xoa that bai");
             }
         }
     }

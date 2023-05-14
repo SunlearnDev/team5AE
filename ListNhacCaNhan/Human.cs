@@ -33,13 +33,7 @@ namespace ListNhacCaNhan
             set { this.gender = value; }
             get { return this.gender; }
         }
-        public virtual void Xuat()
-        {
-            Console.WriteLine("ID: " + this.id);
-            Console.WriteLine("Ho ten: " + this.name);
-            Console.WriteLine("Ngay sinh: " + this.birthday.ToString("dd/MM/yyyy"));
-            Console.WriteLine("Gioi tinh: " + this.gender);
-        }
+        public virtual void Xuat() {}
         public virtual void Nhap()
         {
             //Console.Write("ID: ");

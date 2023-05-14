@@ -13,6 +13,7 @@ namespace ListNhacCaNhan
             ListSinger singers = new ListSinger();
             singers.ReadDB();
             singers.Xuat();
+            singers.Xoa();
             Console.ReadKey();
         }
     }
